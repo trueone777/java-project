@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        label 'master'
-    }
-
-    environment {
-        BUILD_NUMBER = 1
-    }
+    agent none
 
     stages {
         stage("Unit Tests") {
