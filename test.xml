@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<project name="Rectangle-Test" default="main" basedir=".">
+  <property environment="env"/>
+
+  <!-- Sets variables which can later be used. -->
+  <!-- The value of a property is accessed via ${} -->
+  <property name="src.dir" location="src" />
+  <property name="build.dir" location="bin" />
+  <property name="report.dir" location="reports" />
+
+  <path id="class.path">
+    <pathelement location="./lib/junit-4.10.jar" />
+    <pathelement location="${build.dir}" />
+  </path>
+
+  <!-- Deletes the existing build, docs and dist directory-->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+    <delete dir="${report.dir}" />
+  </target>
+
+  <!-- Creates the  build, docs and dist directory-->
+  <target name="makedir">
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${report.dir}" />
+  </target>
+
+  <!-- Compiles the java code (including the usage of library for JUnit -->
+  <target name="compile" depends="makedir">
+    <javac srcdir="${src .dir}" destdir="${build.dir}">
+      <classpath refid="class.path" />
+    </javac>
+  </target>
+
+  <!--Creates the deployable jar file  -->
+  <target name="test" depends="clean, makedir, compile">
+    <junit printsummary="yes" fork="true">
+      <classpath refid="class.path" />
+      <test name="RectangleTest" todir="${report.dir}" outfile="result">
+        <formatter type="xml" />
+      </test>
+    </junit>
+  </target>
+
+  <target name="main" depends="test">
+    <description>Main target</description>
+  </target>
+
+</project>
