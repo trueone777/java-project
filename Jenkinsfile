@@ -1,5 +1,7 @@
 pipeline {
-    agent none
+    agent {
+    label 'docker' 
+  }
 
     stages {
         stage("Unit Tests") {
@@ -49,6 +51,7 @@ pipeline {
         stage("Test on Debian") {
             agent {
                 docker 'openjdk:8u242-jre'
+                label 'docker'
             }
 
             steps {
