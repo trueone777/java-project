@@ -45,18 +45,6 @@ pipeline {
                 sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
             }
         }
-
-        stage("Test on Debian") {
-            agent {
-                docker 'openjdk:8u242-jre'
-            }
-
-            steps {
-                sh "wget http://trueone7771c.mylabserver.com/rectangles/all/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}.jar"
-                sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 3 4"
-
-            }
-        }
         stage ('Promote to Green') {
             agent {
                 label 'apache'
